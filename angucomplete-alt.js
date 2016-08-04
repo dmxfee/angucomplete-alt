@@ -321,18 +321,12 @@
         }
 
         function dropdownRowOffsetHeight(row) {
-          if (scope.preventCssComputation) {
-            return 0;
-          }
           var css = getComputedStyle(row);
           return row.offsetHeight +
             parseInt(css.marginTop, 10) + parseInt(css.marginBottom, 10);
         }
 
         function dropdownHeight() {
-          if (scope.preventCssComputation) {
-            return 0;
-          }
           return dd.getBoundingClientRect().top +
             parseInt(getComputedStyle(dd).maxHeight, 10);
         }
@@ -342,9 +336,6 @@
         }
 
         function dropdownRowTop() {
-          if (scope.preventCssComputation) {
-            return 0;
-          }
           return dropdownRow().getBoundingClientRect().top -
             (dd.getBoundingClientRect().top +
              parseInt(getComputedStyle(dd).paddingTop, 10));
@@ -388,7 +379,7 @@
                 }
               });
 
-              if (isScrollOn) {
+              if (isScrollOn && !scope.preventCssComputation) {
                 row = dropdownRow();
                 if (dropdownHeight() < row.getBoundingClientRect().bottom) {
                   dropdownScrollTopTo(dropdownRowOffsetHeight(row));
@@ -405,7 +396,7 @@
                 }
               });
 
-              if (isScrollOn) {
+              if (isScrollOn && !scope.preventCssComputation) {
                 rowTop = dropdownRowTop();
                 if (rowTop < 0) {
                   dropdownScrollTopTo(rowTop - 1);
